@@ -94,12 +94,7 @@ function App() {
       const newScore = score + 1;
       setScore(newScore);
       setFeedbackMessage('Correct!');
-      if (newScore === 3) {
-        setShowSmiley(true);
-        setIsGameOver(true);
-      } else {
-        nextWord();
-      }
+      nextWord();
     } else {
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
@@ -114,8 +109,8 @@ function App() {
   const nextWord = () => {
     const remainingWords = wordList.filter(word => word !== currentWord);
     if (remainingWords.length === 0) {
-      alert('Game Over! You have completed all words.');
-      resetGame();
+      setShowSmiley(true);
+      setIsGameOver(true);
     } else {
       const newWord = remainingWords[0];
       setWordList(remainingWords);
@@ -132,19 +127,19 @@ function App() {
     }
   };
 
- const resetGame = () => {
-  setWordList(initialWords);
-  setCurrentWord(initialWords[0]);
-  setScrambledWord(shuffle(initialWords[0]));
-  setUserGuess('');
-  setScore(0);
-  setMistakes(0);
-  setSkipsLeft(3);
-  setIsGameOver(false);
-  setShowSmiley(false);
-  setFeedbackMessage('');
-  localStorage.removeItem('scrambleGame');
-};
+  const resetGame = () => {
+    setWordList(initialWords);
+    setCurrentWord(initialWords[0]);
+    setScrambledWord(shuffle(initialWords[0]));
+    setUserGuess('');
+    setScore(0);
+    setMistakes(0);
+    setSkipsLeft(3);
+    setIsGameOver(false);
+    setShowSmiley(false);
+    setFeedbackMessage('');
+    localStorage.removeItem('scrambleGame'); // Clear local storage on reset
+  };
 
   return (
     <div className="container">
